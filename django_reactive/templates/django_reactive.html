@@ -6,35 +6,41 @@
   <link href="https://cdn.jsdelivr.net/npm/@mdi/font@4.x/css/materialdesignicons.min.css" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+</head>
+<body>
+<div id="{{name}}_editor">
+  <v-form v-model="formData">  <v-jsf v-model="formData" :schema="schema" @submit="displayData">
+    <v-jsf>    <div slot="rating" slot-scope="{ item: { key, value, update, schema } }" class="field">
+      <label class="label">{{ schema.title }}</label>
+      <star-rating :value="value" @rating-selected="update($event, key)" :show-rating="false" />
+    </div>
+  </v-jsf></v-form
+>
+</div>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@koumoul/vjsf@latest/dist/main.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@koumoul/vjsf@latest/dist/main.css">
 <!-- load third-party dependencies (markdown-it, vuedraggable) -->
 <!-- you can also load them separately based on your needs -->
 <script src="https://cdn.jsdelivr.net/npm/@koumoul/vjsf@latest/dist/third-party.js"></script>
-</head>
-<body>
-<div id="{{namr}}_editor">
-  <schema-form v-model="formData" :schema="schema" @submit="displayData">
-    <div slot="rating" slot-scope="{ item: { key, value, update, schema } }" class="field">
-      <label class="label">{{ schema.title }}</label>
-      <star-rating :value="value" @rating-selected="update($event, key)" :show-rating="false" />
-    </div>
-  </schema-form>
-</div>
-
-  <script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
   <script>
 
-Vue.use(VueJsonSchemaForm.default)
 
-Vue.component('star-rating', VueStarRating.default)
+
+
+
+
+Vue.component('VJsf', VJsf.default)
+
+
 
 new Vue({
   el: '#{{name}}_editor',
   data() {
     return {
-      schema:{{schema|safe}}
+      schema:{{schema|safe}},
       formData: {{data|safe}}
   }
   },
