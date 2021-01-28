@@ -1,16 +1,49 @@
-<div id="{{ name }}_editor" style="width: 100%"></div>
 
-<textarea id="id_{{ name }}" name="{{ name }}" required="" style="display: none">
-  {{ data }}
-</textarea>
+<!DOCTYPE html>
+<html>
+<head>
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/@mdi/font@4.x/css/materialdesignicons.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+  <script src="https://cdn.jsdelivr.net/npm/@koumoul/vjsf@latest/dist/main.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@koumoul/vjsf@latest/dist/main.css">
+<!-- load third-party dependencies (markdown-it, vuedraggable) -->
+<!-- you can also load them separately based on your needs -->
+<script src="https://cdn.jsdelivr.net/npm/@koumoul/vjsf@latest/dist/third-party.js"></script>
+</head>
+<body>
+<div id="{{namr}}_editor">
+  <schema-form v-model="formData" :schema="schema" @submit="displayData">
+    <div slot="rating" slot-scope="{ item: { key, value, update, schema } }" class="field">
+      <label class="label">{{ schema.title }}</label>
+      <star-rating :value="value" @rating-selected="update($event, key)" :show-rating="false" />
+    </div>
+  </schema-form>
+</div>
 
-<script>
-  document.addEventListener("DOMContentLoaded", function () {
-    djangoReactiveRenderForm(
-      "{{ name }}",
-      {{ schema|safe }},
-      {{ ui_schema|safe }},
-      {{ data|safe }}
-    );
-  });
-</script>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
+  <script>
+
+Vue.use(VueJsonSchemaForm.default)
+
+Vue.component('star-rating', VueStarRating.default)
+
+new Vue({
+  el: '#{{name}}_editor',
+  data() {
+    return {
+      schema:{{schema|safe}}
+      formData: {{data|safe}}
+  }
+  },
+  methods: {
+    displayData() {
+      alert(JSON.stringify(this.formData, null, 2))
+    }
+  }
+})
+  </script>
+</body>
+</html>
