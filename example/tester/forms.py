@@ -1,15 +1,15 @@
 from django.forms import ModelForm
 
-from .models import TestModel
+from .models import BasicExampleModel
 
 
-class TestModelForm(ModelForm):
+class ExampleModelForm(ModelForm):
     class Meta:
-        model = TestModel
-        exclude = ["id"]
+        model = BasicExampleModel
+        exclude = ['id']
 
 
 class BasicTestModelForm(ModelForm):
     class Meta:
-        model = TestModel
-        fields = ["basic"]
+        model = BasicExampleModel
+        fields = ['basic']
